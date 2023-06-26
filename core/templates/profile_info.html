@@ -1,0 +1,227 @@
+{% extends 'profile.html' %}
+{% load static %}
+
+{% block content %}
+<div id="profile-info-container" class="container">
+    <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{user.username}}</h5>
+              {% if user.graduate %}
+                <p class="text-muted mb-1">Выпускник</p>
+              {% elif user.employer %}
+                <p class="text-muted mb-1">Работодатель</p>
+              {% else %}
+                <p class="text-muted mb-1">Пользователь</p>
+              {% endif %}
+              {% if user.phone %}
+                <p class="text-muted mb-4">{{user.phone}}</p>
+              {% endif %}
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="callEditProfileModal()">Редактировать профиль</button>
+                <button type="button" class="btn btn-outline-primary ms-1" disabled>Изменить пароль</button>
+              </div>
+            </div>
+          </div>
+          <div class="birthday-span">
+            <h5>Дата рождения <span class="badge bg-secondary">
+              {{user.birthday_date}}
+            </span>
+            </h5>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="bi bi-telegram"></i>
+                  {% if user.links.telegram %}
+                    <p class="mb-0">{{user.links.telegram}}</p>
+                  {% else %}
+                    <p class="mb-0">Ссылка отсутствует</p>
+                  {% endif %}
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="bi bi-whatsapp"></i>
+                  {% if user.links.whats_app %}
+                    <p class="mb-0">{{user.links.whats_app}}</p>
+                  {% else %}
+                    <p class="mb-0">Ссылка отсутствует</p>
+                  {% endif %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Имя и фамилия</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ user.get_full_name|default:user.username }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Эл. почта</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.email|default:None}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Номер телефона</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.my_phone|default:None}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Домашний номер тел.</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.home_phone|default:None}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Адрес</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.address|default:None}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-dark w-100" role="alert">
+            Мои резюме<button type="button" class="add-resume-btn" onclick="callAddResumeModal()"><i class="bi bi-plus-circle"></i></button>
+          </div>
+          <div class="album">
+          <div class="row my-custom-scrollbar">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                  <p class="mb-4"><a type="submit" onclick=""><span class="text-primary font-italic me-1">Резюме</span></a> #1
+                  </p>
+                  <p class="mb-1" style="font-size: .77rem;">Прохождение тестирования</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Телефонное собеседование</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <p class="mt-4 mb-1" style="font-size: .77rem;">Очное собеседование</p>
+                  <div class="progress rounded" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="89"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="edit_profile_modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="card mb-4">
+      <div class="card-header">Детали аккаунта</div>
+        <div class="card-body">
+          <form>
+            {% csrf_token %}
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3">
+                  <!-- Form Group (first name)-->
+                  <div class="col-md-6">
+                      <label class="small mb-1" for="inputFirstName">Имя</label>
+                      <input class="form-control" id="inputFirstName" type="text" placeholder="Введите имя">
+                  </div>
+                  <!-- Form Group (last name)-->
+                  <div class="col-md-6">
+                      <label class="small mb-1" for="inputLastName">Фамилия</label>
+                      <input class="form-control" id="inputLastName" type="text" placeholder="Введите фамилию" >
+                  </div>
+              </div>
+              <!-- Form Row        -->
+              <div class="row gx-3 mb-3">
+                  <!-- Form Group (location)-->
+                  <div class="col-md-6">
+                      <label class="small mb-1" for="inputAddress">Адрес</label>
+                      <input class="form-control" id="inputAddress" type="text" placeholder="Введите адрес">
+                  </div>
+                  <!-- Form Group (birthday)-->
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="inputBirthdayDate">Дата рождения (06/10/1988)</label>
+                    <input class="form-control" id="inputBirthdayDate" type="text" name="birthday" placeholder="Введите дату рождения">
+                </div>
+              </div>
+              <!-- Form Group (email address)-->
+              <div class="row gx-3 mb-3">
+                  <label class="small mb-1" for="inputEmailAddress">Электронная почта</label>
+                  <input class="form-control" id="inputEmailAddress" type="email" placeholder="Введите эл. почту">
+              </div>
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3">
+                  <!-- Form Group (your phone number)-->
+                  <div class="col-md-6">
+                      <label class="small mb-1" for="inputMyPhone">Номер телефона</label>
+                      <input class="form-control" id="inputMyPhone" type="tel" placeholder="Введите номер телефона">
+                  </div>
+                  <!-- Form Group (home phone number)-->
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="inputHomePhone">Дом. номер телефона</label>
+                    <input class="form-control" id="inputHomePhone" type="tel" placeholder="Введите дом. номер тел.">
+                </div>
+              </div>
+              <!-- Save changes button-->
+              <button class="btn btn-primary" type="button" onclick="editProfile('{{user.username}}')">Сохранить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="add_resume_modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="card mb-4">
+      <div class="card-header">Заполнение резюме</div>
+        <div class="card-body">
+          <form>
+            {% csrf_token %}
+              <!-- Form Row-->
+              <div class="row">
+                <label for="resume-description" class="form-label">Описание резюме</label>
+                <div class="input-group">
+                  <textarea id="resume-description" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+              </div>
+              <br>
+              <button class="btn btn-primary" type="button" onclick="addResume('{{user.username}}')">Сохранить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

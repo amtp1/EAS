@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'img/favicon.ico'%}" alt="EAS" width="30" height="24">
+      </a>
+      <a class="navbar-brand" href="/">Главная</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Информация
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="">Список учебных заведений</a></li>
+          <li><a class="dropdown-item" href="">Список специальностей</a></li>
+          <li><a class="dropdown-item" href="">Список требований к соискателям</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Советы
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="">Подготовка к собеседованию</a></li>
+          <li><a class="dropdown-item" href="">Составление резюме</a></li>
+          <li><a class="dropdown-item" href="">Развитие профессиональных навыков</a></li>
+        </ul>
+      </li>
+      <form class="d-flex center" role="search" action="/">
+        {% if user.graduate %}
+          <input id="search" class="form-control me-2" type="search" placeholder="Поиск вакансий" aria-label="Search">
+        {% elif user.employer %}
+          <input id="search" class="form-control me-2" type="search" placeholder="Поиск резюме" aria-label="Search">
+        {% else %}
+          <input id="search" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" disabled>
+        {% endif %}
+      </form>
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        </ul>
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="submit" class="btn btn-outline-secondary" onclick="profile_info('{{user.username}}')"><i class="bi bi-person-fill"></i></button>
+        </div>
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="submit" class="btn btn-outline-danger" onclick="logout()">Выйти</button>
+        </div>
+      </div>
+    </div>
+</nav>
+{% block content %}
+<div id="main-album" class="album py-2 my-custom-scrollbar">
+  <div class="table-scroll-y">
+    <div id="posts-div" class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+        {% for vacancy in vacancies %}
+        <div class="c">
+            <div id="main-card" class="card mb-3">
+                <img src="{{vacancy.employer.image.url}}" class="card-img-top vacancy-img" alt="..." width="200">
+                <div class="card-body">
+                  <h5 class="card-title">{{vacancy.employer.company_name}}</h5>
+                  <h6 class="card-subtitle mb-2 text-body-secondary">{{vacancy.employer.work_area}}</h6>
+                  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Больше инф.
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!--<li><a class="dropdown-item" href="#">Dropdown link</a></li>
+                        <li><a class="dropdown-item" href="#">Dropdown link</a></li>-->
+                        <p><span class="badge text-bg-primary">Профессия:</span> {{vacancy.profession}}</p>
+                        <p><p><span class="badge text-bg-primary">Требования:</span> {{vacancy.demands}}</p>
+                        <p><p><span class="badge text-bg-primary">Описание:</span> {{vacancy.description}}</p>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col">
+                              <p id="dateCreated" class="card-text"><small class="text-muted">{{post.created}}</small></p>
+                            </div>
+                          </div>
+                      </div>
+                      </ul>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary">Отклик</button>
+                  <!--<p id="postDescription" class="card-text">
+                    Профессия: {{vacancy.profession}}
+                  </p>
+                  <p class="card-text">
+                    Требования: {{vacancy.demands}}
+                  </p>
+                  <p class="card-text">
+                    Описание: {{vacancy.description}}
+                  </p>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col">
+                        <p id="dateCreated" class="card-text"><small class="text-muted">{{post.created}}</small></p>
+                      </div>
+                    </div>
+                </div>-->
+              </div>
+              <div class="card-footer">
+                <small class="text-body-secondary">{{vacancy.created}}</small>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% endblock %}

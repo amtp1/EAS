@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+{% if form.errors %}
+<script>
+    alert("Ваше имя пользователя и пароль не совпали. Пожалуйста, попробуйте еще раз.");
+</script>
+{% endif %}
+
+<section class="vh-75 gradient-custom">
+    <div class="container py-2 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+  
+              <div class="mb-md-5 mt-md-4 pb-5">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <h2 class="fw-bold mb-2 text-uppercase">Вход</h2>
+                    <p class="text-white-50 mb-5">Пожалуйста введите ваш логин и пароль!</p>
+    
+                    <div class="form-outline form-white mb-4">
+                    <p><label class="form-label" for="typeEmailX">Имя пользователя:</label></p>
+                    <td id="username">{{ form.username }}</td>
+                    </div>
+    
+                    <div class="form-outline form-white mb-4">
+                    <p><label class="form-label" for="typePasswordX">Пароль:</label></p>
+                    <td id="password">{{ form.password }}</td>
+                    </div>
+                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Войти</button>
+                </div>
+                <div>
+                    <p class="mb-0">Отсутствует аккаунт? <a href="{% url 'signup' %}" class="text-white-50 fw-bold">Зарегистрироваться</a></p>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

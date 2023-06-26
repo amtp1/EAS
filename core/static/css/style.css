@@ -1,0 +1,124 @@
+body {
+    overflow-y: hidden;
+}
+
+#profile-info-container {
+    margin-top: 0.7%;
+}
+
+#search {
+    border: 1px solid #777;
+    float: none;
+    position: absolute;
+    top: 20%;
+    left: 43%;
+    width: 200px;
+}
+
+.alert-dark {
+    max-height: 55px;
+    top: -14px;
+}
+
+.add-resume-btn {
+    height: 26px;
+    width: 29px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.my-custom-scrollbar {
+    max-height: 88vh;
+    overflow: auto;
+  }
+  
+  .my-custom-scrollbar::-webkit-scrollbar{
+    width: 6px;
+    background-color: #F5F5F5;
+  }
+  
+  .my-custom-scrollbar::-webkit-scrollbar-thumb{
+    background-color: #000000;
+  }
+
+#main-album {
+    padding: 4em;
+}
+
+.table-scroll-y {
+    margin-left: 30px;
+}
+
+#main-card {
+    width: 300px;
+    padding: 1em;
+    margin-right: 40px;
+}
+
+.more-description-button {
+    border-width: 0px;
+    background-color: white;
+}
+
+.c {
+    width: 425px;
+    margin-left: 35px;
+    margin-bottom: 5
+    0px;
+ }
+
+ .vacancy-img{
+    float:left;
+    overflow:hidden;
+    position:relative;
+    margin-bottom: 10px;
+    float:left;
+    height:250px;
+}
+
+textarea {
+    height: 200px;
+}
+
+.birthday-span {
+    margin-left: 5px;
+}
+
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+.card .card-header {
+    font-weight: 500;
+}
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+
+.form-control, .dataTable-input {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #69707a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dropdown-menu {
+    width: 235px;
+}
